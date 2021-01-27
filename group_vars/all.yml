@@ -1,0 +1,6 @@
+---
+ansible_connection: network_cli
+ansible_network_os: routeros
+ansible_user: ansible
+ansible_ssh_private_key_file: /home/alex/.ssh/uvc_mik_priv.ppk
+version: '                  version: 6.46.1 (stable)'
