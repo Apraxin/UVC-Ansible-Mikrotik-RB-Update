@@ -1,0 +1,33 @@
+---
+- name: Too Much Backups??? It's IMPOSSIBLE! :)  Creating of "bk" directory, if it doesn't exist
+  file:
+    path: bk
+    state: directory
+
+- name: Do Export on MikroTik Device
+  routeros_command:
+    commands: /export compact file={{ inventory_hostname }}
+
+- name: Copying of RSC file from Device to "bk" folder
+  net_get:
+    src: "{{ inventory_hostname }}.rsc"
+    dest: bk/{{ inventory_hostname }}.rsc
+    protocol: sftp
+
+- name: Do Backup on MikroTik Device
+  routeros_command:
+    commands: /system backup save name={{ inventory_hostname }}
+
+- name: Copying of BACKUP file from Device to "bk" folder
+  net_get:
+    src: "{{ inventory_hostname }}.backup"
+    dest: bk/{{ inventory_hostname }}.backup
+    protocol: sftp
+
+- name: Delete RSC file on MikroTik Device
+  routeros_command:
+    commands: /file remove {{ inventory_hostname }}.rsc
+
+- name: Delete BACKUP file on MikroTik Device
+  routeros_command:
+    commands: /file remove {{ inventory_hostname }}.backup

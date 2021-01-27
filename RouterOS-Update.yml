@@ -1,0 +1,72 @@
+---
+- name: RouterOS Update on CHR; RouterOS and Firmware Updates on RB
+  hosts: all
+  serial: 1
+  gather_facts: no
+  vars:
+    version: 6.48
+
+  tasks:
+
+    - name: START
+      debug:
+        msg: "-------------------------------------------------------GIVE IT TO ME!!!!!-------------------------------------------------------"
+
+    - name: Too Much Backups??? It's IMPOSSIBLE! :)
+      include: BackupRouterOS.yml
+
+    - name: Checking if it's CHR or RB
+      routeros_command:
+        commands: /system routerboard print
+      register: system_print
+
+    - name: Printing if it's CHR or RB
+      debug:
+        var: system_print.stdout_lines[0][0]
+
+    - name: Checking RouterOS Version before Updating (both CHR and RB)
+      routeros_command:
+        commands: /system resource print
+      register: routeros_resources_before_updating
+
+    - name: Printing RouterOS Version before Updating (both CHR and RB)
+      debug:
+        var: routeros_resources_before_updating.stdout_lines[0][1]
+
+    - name: Updating CHR RouterOS if RouterOS Version < {{ version }}
+      include: UpdateRouterOS-CHR.yml
+      when:
+        - "'routerboard: no' in system_print.stdout_lines[0][0]"
+        - "'6.48' not in routeros_resources_before_updating.stdout_lines[0][1]"
+
+    - name: Updating RB RouterOS if RouterOS Version < {{ version }}
+      include: UpdateRouterOS-RB.yml
+      when:
+        - "'routerboard: yes' in system_print.stdout_lines[0][0]"
+        - "'6.48' not in routeros_resources_before_updating.stdout_lines[0][1]"
+
+    - name: Checking RouterOS Version after Updating (both CHR and RB)
+      routeros_command:
+        commands: /system resource print
+      register: routeros_resources_after_updating
+
+    - name: Printing RouterOS Version after Updating (both CHR and RB)
+      debug:
+        var: routeros_resources_after_updating.stdout_lines[0][1]
+
+    - name: Checking Firmware Version after Updating (refers to RB only)
+      routeros_command:
+        commands: /system routerboard print
+      register: system_print_after_updating
+
+    - name: Printing Firmware Version after Updating (RB only)
+      debug:
+        msg:
+          - factory-firmware {{ system_print_after_updating.stdout_lines[0][5] }}
+          - current-firmware {{ system_print_after_updating.stdout_lines[0][6] }}
+          - upgrade-firmware {{ system_print_after_updating.stdout_lines[0][7] }}
+      when: "'yes' in system_print_after_updating.stdout_lines[0][0]"
+
+    - name: FINISH
+      debug:
+        msg: "---------------------------------------------DO YOU HAVE ANYTHING ELSE FOR ME??????---------------------------------------------"
