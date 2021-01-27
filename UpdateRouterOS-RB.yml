@@ -14,7 +14,7 @@
       - /system script remove ANSIBLE_REBOOT_SCRIPT
       - /system scheduler remove numbers=[find where name =ANSIBLE_REBOOT_SCHEDULER]
       - /system script add name=ANSIBLE_REBOOT_SCRIPT owner=ansible source="/system scheduler remove numbers=[find where name =ANSIBLE_REBOOT_SCHEDULER];:delay 5;/system reboot" dont-require-permissions=yes
-      - /system scheduler add name=ANSIBLE_REBOOT_SCHEDULER start-date=Jan/18/2021 on-event="/system script run ANSIBLE_REBOOT_SCRIPT" interval=10
+      - /system scheduler add name=ANSIBLE_REBOOT_SCHEDULER start-date=Jan/27/2021 on-event="/system script run ANSIBLE_REBOOT_SCRIPT" interval=10
 
 - name: Waiting while RB Rebooting and RouterOS Updating
   pause:
@@ -26,7 +26,7 @@
       - /system script remove ANSIBLE_UPGRADE_SCRIPT
       - /system scheduler remove numbers=[find where name =ANSIBLE_UPGRADE_SCHEDULER]
       - /system script add name=ANSIBLE_UPGRADE_SCRIPT owner=ansible source="/system scheduler remove numbers=[find where name =ANSIBLE_UPGRADE_SCHEDULER];/system routerboard upgrade;:delay 60s;/system reboot" dont-require-permissions=yes
-      - /system scheduler add name=ANSIBLE_UPGRADE_SCHEDULER start-date=Jan/18/2021 on-event="/system script run ANSIBLE_UPGRADE_SCRIPT" interval=10
+      - /system scheduler add name=ANSIBLE_UPGRADE_SCHEDULER start-date=Jan/27/2021 on-event="/system script run ANSIBLE_UPGRADE_SCRIPT" interval=10
 
 - name: Waiting while RB Rebooting
   pause:
