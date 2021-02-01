@@ -1,40 +1,36 @@
 # MikroTik-RouterOS-Update-Ansible
-Updating MikroTik RouterOS Devices using Ansible (both CHR and RB)
+Обновление устройств MikroTik RouterOS с использованием Ansible (как CHR, так и RB)
 
-<h1>What?</h1>
+<h1>Что обновляем?</h1>
 
-- Updating RouterOS using Ansible
+- Обновление RouterOS с помощью Ansible
 
-<h1>Where?</h1>
+<h1>Где обновляем?</h1>
 
-- Tested on Ansible 2.9.1
-- RouterOS version not lower than 6.45 due to the use of sftp to transfer files
+- Испытано на Ansible 2.9.1
+- Версия RouterOS не ниже 6.45 так как использования sftp для передачи файлов
 
-<h1>How?</h1>
+<h1>Как обновляем?</h1>
 
-- Just start playbook <b>RouterOS-Update.yml</b>
-- Playbooks <b>BackupRouterOS.yml</b>, <b>UpdateRouterOS-RB.yml</b>, <b>UpdateRouterOS-CHR.yml</b> are needed for work
+- Просто запусти плейбук <b>RouterOS-Update.yml</b>
+- Плейбуки <b>BackupRouterOS.yml</b>, <b>UpdateRouterOS-RB.yml</b>, <b>UpdateRouterOS-CHR.yml</b> запускать не нужно, но они используются.
 
-<h1>Warning!</h1>
+<h1>Внимание!</h1>
 
-- I use ssh keys for authentication in example (and strictly recommend it)
-- Before using, check the RouterOS latest version and type it in <b>RouterOS-Update.yml</b> playbook in three places (strings № 7, 40, 46)
+- Я использую ssh-ключи для аутентификации в примере (и вам рекомендую)
+- Перед использованием проверьте последнюю версию RouterOS и введите ее в <b>RouterOS-Update.yml</b> в трех местах (строки № 7, 40, 46)
 
-<h1>How does it work?</h1>
+<h1>Как это работает?</h1>
 
-General Steps:
-1. Doing export and backup files of RouterOS
-2. Copying these files to "bk" folder
-3. Checking and Printing if it's CHR or RB
-4. Checking and Printing RouterOS Version (both CHR and RB)
-5. Updating CHR RouterOS, if needed  (when current RouterOS version != {{ version }})
-6. Updating RB RouterOS + RB Firmware, if needed (when current RouterOS version != {{ version }})
-7. Checking and Printing RouterOS Version after Updating (both CHR and RB)
-8. Checking and Printing Firmware Version after Updating (refers to RB only)
-9. Some cleaning on every steps
+Общие шаги:
+1. Выполнение экспорта и резервного копирования файлов RouterOS
+2. Копирование этих файлов в папку "bk"
+3. Проверка и вывод, если это CHR или RB
+4. Проверка и вывод версии RouterOS (как CHR, так и RB)
+5. Обновление CHR RouterOS, если это необходимо (когда текущая версия RouterOS != {{ version }})
+6. Обновление прошивки RB RouterOS + RB Firmware, если это необходимо (при текущей версии RouterOS != {{ version }})
+7. Проверка и вывод версии RouterOS после обновления (как CHR, так и RB)
+8. Проверка и вывод версии прошивки после обновления (относится только к RB)
+9. Необходимая чистка на каждом этапе
 
-Due to scripting (delays and pauses) durations of RB and CHR updating are 6 min 25 sec and 2 min 15 sec respectively
-
-<h1>What to do?</h1>
-
-- Just enjoy!
+Из-за сценариев (задержек и пауз) продолжительность обновления RB и CHR составляет 6 мин 25 сек и 2 мин 15 сек соответственно
