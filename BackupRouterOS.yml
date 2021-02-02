@@ -1,5 +1,5 @@
 ---
-- name: Too Much Backups??? It's IMPOSSIBLE! :)  Creating of "bk" directory, if it doesn't exist
+- name: There are never too many backups! :)  Creating of "bk" directory, if it doesn't exist
   file:
     path: bk
     state: directory
