@@ -2,7 +2,7 @@
 - name: UPDATING (RB only)
   debug:
     msg:
-      - "------------------------------------------------------------I'm RB! Let's update ME! ------------------------------------------------------------"
+      - "--------------------------------------------------I'm Mikrotik Router, please update me!!!--------------------------------------------------"
 
 - name: Downloading RouterOS on RB
   routeros_command:
@@ -41,4 +41,4 @@
 - name: SUMMARY (RB only)
   debug:
     msg:
-      - "--------------------------------------------- MikroTik RouterBoard Updating Tasks have been done!!! ---------------------------------------------"
+      - "-------------------------------------------------- The update is complete, thanks! --------------------------------------------------"
