@@ -1,27 +1,27 @@
 ---
-- name: There are never too many backups! :)  Creating of "bk" directory, if it doesn't exist
+- name: There are never too many backups! :)  Creating of "Backup" directory, if it doesn't exist
   file:
-    path: bk
+    path: Backup
     state: directory
 
 - name: Do Export on MikroTik Device
   routeros_command:
     commands: /export compact file={{ inventory_hostname }}
 
-- name: Copying of RSC file from Device to "bk" folder
+- name: Copying of RSC file from Device to "Backup" folder
   net_get:
     src: "{{ inventory_hostname }}.rsc"
-    dest: bk/{{ inventory_hostname }}.rsc
+    dest: Backup/{{ inventory_hostname }}.rsc
     protocol: sftp
 
 - name: Do Backup on MikroTik Device
   routeros_command:
     commands: /system backup save name={{ inventory_hostname }}
 
-- name: Copying of BACKUP file from Device to "bk" folder
+- name: Copying of BACKUP file from Device to "Backup" folder
   net_get:
     src: "{{ inventory_hostname }}.backup"
-    dest: bk/{{ inventory_hostname }}.backup
+    dest: Backup/{{ inventory_hostname }}.backup
     protocol: sftp
 
 - name: Delete RSC file on MikroTik Device
