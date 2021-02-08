@@ -13,7 +13,7 @@
 <h1>Как обновляем?</h1>
 
 - Просто запусти плейбук <b>RouterOS-Update.yml</b>
-- Плейбуки <b>BackupRouterOS.yml</b>, <b>UpdateRouterOS-RB.yml</b>, <b>UpdateRouterOS-CHR.yml</b> запускать не нужно, но они используются.
+- Плейбуки <b>BackupRouterOS.yml</b>, <b>UpdateRouterOS-RB.yml</b>, <b>UpdateRouterOS-CHR.yml</b> запускать не нужно, это подзадачи.
 
 <h1>Внимание!</h1>
 
